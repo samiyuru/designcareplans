@@ -21,11 +21,25 @@
 //});
 
 $(document).ready(function () {
-    $('#projects-list').slick({
-        infinite: false,
-        slidesToShow: 3,
-        slidesToScroll: 3
+//    $('#gallery-slick').slick({
+//        infinite: false,
+//        slidesToShow: 1,
+//        slidesToScroll: 1
+//    });
+//
+//    $('#poojects-slick').slick({
+//        infinite: false,
+//        slidesToShow: 1,
+//        slidesToScroll: 1
+//    });
+
+    $('.glisse').glisse({
+        changeSpeed: 550,
+        speed: 500,
+        effect: 'roll'
     });
+
+    //$('#testpara').imageScroll();
 
     $('#head').height($(window).height());
     $(window).resize(function () {
@@ -33,14 +47,52 @@ $(document).ready(function () {
     });
 });
 
-angular.module("myapp", ['ngRoute']);
+angular.module('myapp', ['ngRoute']);
 
-angular.module("myapp").config(function ($routeProvider, $httpProvider) {
-    $routeProvider.
-        when('/', {
-            templateUrl: ''
-        }).
-        otherwise({
-            redirectTo: '/'
-        });
+angular.module('myapp').directive('anchorLink', function ($location) {
+    var linksList = [];
+    return {
+        restrict: 'A',
+        scope: {
+            link: '@anchorLink'
+        },
+        link: function (scope, elem, attr) {
+            linksList.push(scope.link);
+
+            elem.click(function () {
+                $location.path(scope.link);
+                scope.$apply();
+            });
+
+            scope.$on('$locationChangeSuccess', function (event) {
+                for (var i in linksList) {
+                    if (linksList[i] == $location.path()) {
+                        if (scope.link == $location.path()) {
+                            elem.addClass('active');
+                        } else {
+                            elem.removeClass('active');
+                        }
+                        return;
+                    }
+                }
+                $location.path('/');
+            });
+        }
+    };
+});
+
+angular.module('myapp').directive('anchor', function ($location) {
+    return {
+        restrict: 'A',
+        scope: {
+            anchor: '@anchor'
+        },
+        link: function (scope, elem, attr) {
+            scope.$on('$locationChangeSuccess', function (event) {
+                if (scope.anchor == $location.path()) {
+                    $(document).scrollTo(elem, 400);
+                }
+            });
+        }
+    };
 });
