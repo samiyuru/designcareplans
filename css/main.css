@@ -190,8 +190,8 @@ button.btnbg-gray {
     max-width: 800px;
 }
 
-#aboutus .row.about {
-    margin-bottom: 30px;
+#aboutus .mshvis {
+    margin-top: 30px;
 }
 
 #aboutus p {
@@ -273,8 +273,12 @@ button.btnbg-gray {
 
 #contactus hr {
     width: 100%;
-    margin: 40 auto;
+    margin: 40 auto 10 auto;
     border-color: #ccc;
+}
+
+#contactus .info, #contactus .fdbk {
+   margin-top: 20px;
 }
 
 #contactus .info {
