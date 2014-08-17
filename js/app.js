@@ -1,10 +1,10 @@
 /**
  * Created by samiyuru on 8/13/14.
  */
-
 $(document).ready(function () {
-    $('#contactus').parallax("50%", 0.3);
     $('#head').parallax("50%", 0.3);
+    $('#aboutus').parallax("50%", 0.2);
+    $('#contactus').parallax("50%", 0.3);
 
     $('#head').height($(window).height());
     $(window).resize(function () {
@@ -12,45 +12,123 @@ $(document).ready(function () {
     });
 });
 
-angular.module('myapp', ['ngRoute']);
+angular.module('myapp', []);
 
 angular.module('myapp').controller('projects', function ($scope) {
 
     $scope.contLst = [
         {
-            title: 'Project Name',
+            title: 'Project Name 1',
             thumbPath: 'img/bg-img01.jpg',
-            imgPath: 'img/bg-img01.jpg',
+            info: [
+                {
+                    title: 'image one title',
+                    src: 'img/bg-img01.jpg'
+                },
+                {
+                    title: 'image two title',
+                    src: 'img/bg-img01.jpg'
+                },
+                {
+                    title: 'image three title',
+                    src: 'img/bg-img01.jpg'
+                }
+            ],
             text: 'det ai les about the pr oject de tails about the pro ject deta ils about the pro ject'
         },
         {
-            title: 'Project Name',
+            title: 'Project Name 2',
             thumbPath: 'img/bg-img01.jpg',
-            imgPath: 'img/bg-img01.jpg',
+            info: [
+                {
+                    title: 'image one title',
+                    src: 'img/bg-img01.jpg'
+                },
+                {
+                    title: 'image two title',
+                    src: 'img/bg-img01.jpg'
+                },
+                {
+                    title: 'image three title',
+                    src: 'img/bg-img01.jpg'
+                }
+            ],
             text: 'det ai les about the pr oject de tails about the pro ject deta ils about the pro ject'
         },
         {
-            title: 'Project Name',
+            title: 'Project Name 3',
             thumbPath: 'img/bg-img01.jpg',
-            imgPath: 'img/bg-img01.jpg',
+            info: [
+                {
+                    title: 'image one title',
+                    src: 'img/bg-img01.jpg'
+                },
+                {
+                    title: 'image two title',
+                    src: 'img/bg-img01.jpg'
+                },
+                {
+                    title: 'image three title',
+                    src: 'img/bg-img01.jpg'
+                }
+            ],
             text: 'det ai les about the pr oject de tails about the pro ject deta ils about the pro ject'
         },
         {
-            title: 'Project Name',
+            title: 'Project Name 4',
             thumbPath: 'img/bg-img01.jpg',
-            imgPath: 'img/bg-img01.jpg',
+            info: [
+                {
+                    title: 'image one title',
+                    src: 'img/bg-img01.jpg'
+                },
+                {
+                    title: 'image two title',
+                    src: 'img/bg-img01.jpg'
+                },
+                {
+                    title: 'image three title',
+                    src: 'img/bg-img01.jpg'
+                }
+            ],
             text: 'det ai les about the pr oject de tails about the pro ject deta ils about the pro ject'
         },
         {
-            title: 'Project Name',
+            title: 'Project Name 5',
             thumbPath: 'img/bg-img01.jpg',
-            imgPath: 'img/bg-img01.jpg',
+            info: [
+                {
+                    title: 'image one title',
+                    src: 'img/bg-img01.jpg'
+                },
+                {
+                    title: 'image two title',
+                    src: 'img/bg-img01.jpg'
+                },
+                {
+                    title: 'image three title',
+                    src: 'img/bg-img01.jpg'
+                }
+            ],
             text: 'det ai les about the pr oject de tails about the pro ject deta ils about the pro ject'
         },
         {
-            title: 'Project Name',
+            title: 'Project Name 6',
             thumbPath: 'img/bg-img01.jpg',
-            imgPath: 'img/bg-img01.jpg',
+            info: [
+                {
+                    title: 'image one title',
+                    src: 'img/bg-img01.jpg'
+                },
+                {
+                    title: 'image two title',
+                    src: 'img/bg-img01.jpg'
+                },
+                {
+                    title: 'image three title',
+                    src: 'img/bg-img01.jpg'
+                }
+            ],
             text: 'det ai les about the pr oject de tails about the pro ject deta ils about the pro ject'
         }
     ];
@@ -301,16 +379,13 @@ angular.module('myapp').directive('limList', function ($location, $rootScope) {
                 showCount += perload;
                 updateShowMode();
                 updateShowList();
-                var scrlToI = (showCount <= scope.items.length) ? showCount - 1 : scope.items.length - 1;
-                $(document).scrollTo(scope.items[scrlToI], 400);
             };
 
             scope.showLess = function () {
                 showCount = limCout;
                 updateShowMode();
                 updateShowList();
-                var scrlToI = limCout - 1;
-                $(document).scrollTo(scope.items[scrlToI], 400);
+                $(document).scrollTo(scope.items[0], 400);
             };
         },
         template: '<div>\
@@ -339,32 +414,37 @@ angular.module('myapp').directive('limListItem', function ($location, $rootScope
 
 
 angular.module('myapp').directive('bigImg', function () {
-    var items = {};
+    var itemsObj = {};
     return {
         restrict: 'A',
         scope: {
-            path: '@bigImg',
+            path: '&bigImg',//string path or array of {src:'',title:''}
             gkey: '@gkey'
         },
         link: function (scope, elem, attr) {
-            if (!items[scope.gkey]) {
-                items[scope.gkey] = [];
+            var index = 0;
+
+            if (typeof scope.path() == 'object') {
+                itemsObj[scope.gkey] = scope.path();
+            } else {
+                if (!itemsObj[scope.gkey]) {
+                    itemsObj[scope.gkey] = [];
+                }
+
+                index = itemsObj[scope.gkey].length;
+
+                itemsObj[scope.gkey].push({
+                    src: scope.path(),
+                    title: 'sample title'
+                });
             }
-
-            var index = items[scope.gkey].length;
-
-            items[scope.gkey].push({
-                src: scope.path,
-                title: 'sample title'
-            });
 
             elem.click(function () {
                 $.magnificPopup.open({
-                    items: items[scope.gkey],
+                    items: itemsObj[scope.gkey],
                     type: 'image',
                     key: scope.gkey,
                     gallery: {
-                        // options for gallery
                         enabled: true
                     },
                     closeBtnInside: false
