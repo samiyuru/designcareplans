@@ -1,0 +1,26 @@
+/********magnific-popup*********/
+
+.mfp-title {
+    padding-right: 70px;
+    font-size: 13px;
+    color: #cecece;
+}
+
+.mfp-bg{
+    background-color: #000;
+    opacity: 0.9;
+}
+
+.mfp-zoom-out-cur, .mfp-zoom-out-cur .mfp-image-holder{
+    cursor: default;
+}
+
+.mfp-close{
+    cursor: pointer;
+}
+
+.mfp-arrow:before{
+    border: 0;
+}
+
+/*****************/
