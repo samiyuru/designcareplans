@@ -99,6 +99,13 @@ section {
     padding: 0;
 }
 
+#head .fb-like{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    z-index: 999999;
+}
+
 .bottom-bar {
     position: absolute;
     bottom: 0px;
