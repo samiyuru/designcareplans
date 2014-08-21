@@ -85,6 +85,16 @@ section {
     font-size: 14px;
 }
 
+.cont-top-hr{
+    border-top: 1px solid #bdbdbd;
+    padding-top: 10px;
+    margin-top: 0px;
+    margin: 0 auto;
+    width: 200px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
 /*********************************/
 
 #head {
@@ -100,10 +110,7 @@ section {
 }
 
 #head .fb-like{
-    position: absolute;
-    left: 20px;
-    top: 20px;
-    z-index: 999999;
+    display: inline-block;
 }
 
 .bottom-bar {
